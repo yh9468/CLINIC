@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/custom_edit_text"
+    >
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="140dp"
+        android:scaleType="fitCenter"
+        android:layout_gravity="center"
+        android:layout_marginStart="20dp"
+        android:src="@drawable/shop_button_icon"
+        android:id="@+id/Laundry_Image"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginStart="30dp">
+        <TextView
+            android:id="@+id/Laundry_Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"/>
+        <TextView
+            android:id="@+id/Laundry_Address"
+            android:layout_marginTop="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/Gray_text"
+            android:textSize="8sp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="3dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/star_yes"/>
+            <TextView
+                android:id="@+id/star_rate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/textColor"
+                />
+
+        </LinearLayout>
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="가능품목: 외투, 일반의류, 운동화, 침구, 카페트, 커텐"
+            android:textColor="@color/Gray_text"/>
+    </LinearLayout>
+
+</LinearLayout>

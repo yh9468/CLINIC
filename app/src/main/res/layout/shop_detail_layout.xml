@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.example.younho.clinic.CircleImageView
+        android:id="@+id/shop_image"
+        android:src="@drawable/shop_button_icon"
+        android:layout_marginTop="30dp"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        app:civ_border_width="2dp"
+        android:layout_gravity="center"
+        app:civ_border_color="#FF000000"/>
+    <TextView
+        android:id="@+id/shop_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="30sp"
+        android:gravity="center"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/Gray_text"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:id="@+id/shop_address"/>
+    <TextView
+        android:id="@+id/price_title"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="요금표"
+        android:background="@drawable/custom_edit_text"/>
+
+    <ListView
+        android:id="@+id/price_detail"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/select_address_button_shape"
+        android:layout_weight="1"
+        />
+    <Button
+        android:id="@+id/deliver_button"
+        android:layout_width="match_parent"
+        android:background="@drawable/button_selector_view"
+        android:layout_height="40dp"
+        android:text="주문하기"
+        android:gravity="center"
+        android:textSize="15sp"
+        />
+
+
+</LinearLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.younho.clinic">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/customApp">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyACB5YZdQkxXJm01RY6SJ4W89LeMhfb1lE"
+            />
+        <activity android:name=".splash_activity"
+            android:screenOrientation="portrait">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+
+        <activity android:name=".MainActivity" android:theme="@style/AppTheme"/>
+        <activity android:name=".CleanActivity"/>
+        <activity android:name="Select_address_Activity"/>
+        <activity android:name=".private_data_Activity"/>
+        <activity android:name=".history_activity"/>
+        <activity android:name=".shop_take_activity"/>
+        <activity android:name=".shop_detail_activity"/>
+    </application>
+
+</manifest>

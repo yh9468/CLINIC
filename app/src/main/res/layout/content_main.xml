@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash"
+    tools:context=".MainActivity">
+    <TextView
+        android:id="@+id/Clinic_title"
+        android:textSize="70dp"
+        android:fontFamily="@font/my_font"
+        android:text="CLINIC"
+        android:textColor="@color/textColor"
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_height="80dp"
+        android:layout_marginStart="10dp"/>
+    <Button
+        android:layout_below="@+id/Clinic_title"
+        android:id="@+id/clean_button"
+        android:layout_width="250dp"
+        android:layout_height="125dp"
+        android:layout_centerHorizontal="true"
+        android:shadowColor="#A8A8A8"
+        android:background = "@drawable/button_shape"
+        android:drawableStart="@drawable/drawable_left_image_customise"
+        android:gravity="start|center_vertical"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:text="세탁물 배달 신청   >"/>
+
+    <Button
+        android:id="@+id/fix_button"
+        android:layout_width="250dp"
+        android:layout_height="125dp"
+        android:layout_centerHorizontal="true"
+        android:shadowColor="#A8A8A8"
+        android:background = "@drawable/button_shape"
+        android:drawableStart="@drawable/drawable_left_icon_fix_button"
+        android:gravity="start|center_vertical"
+        android:layout_below="@+id/clean_button"
+        android:layout_marginBottom="20dp"
+        android:text="수선물 배달 신청   >"/>
+
+    <Button
+        android:id="@+id/shop_button"
+        android:layout_below="@+id/fix_button"
+        android:layout_width="250dp"
+        android:layout_height="125dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:shadowColor="#A8A8A8"
+        android:background = "@drawable/button_shape"
+        android:drawableStart="@drawable/drawable_left_shop_icon"
+        android:gravity="start|center_vertical"
+        android:text="사장님 신청하기   >"/>
+
+
+</RelativeLayout>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group>
+        <item
+            android:id="@+id/nav_profile"
+
+            android:icon="@drawable/ic_perm_identity_black_48dp"
+            android:title="Profile" />
+        <item
+            android:id="@+id/nav_listview"
+            android:icon="@drawable/ic_format_align_left_black_48dp"
+            android:title="List View" />
+        <item
+            android:id="@+id/nav_radius"
+            android:icon="@drawable/ic_adjust_black_48dp"
+            android:title="Radius" />
+        <item
+            android:id="@+id/nav_mapstyle"
+            android:icon="@drawable/map"
+            android:title="Map Style" />
+        <item
+            android:id="@+id/nav_credit"
+            android:icon="@drawable/ic_supervisor_account_black_48dp"
+            android:title="Credit" />
+    </group>
+
+</menu>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center_vertical"
+    android:background="@color/textColor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/drawer_button"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="5dp"
+        android:layout_width="35dp"
+        android:layout_height="40dp"
+        android:background="@drawable/ic_format_align_left_black_48dp"/>
+
+    <TextView
+        android:text="CLINIC"
+        android:id="@+id/first_title"
+        android:textSize="20sp"
+        android:textColor="#fff"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="17dp"
+        android:layout_toRightOf="@id/drawer_button"
+        android:layout_width="match_parent"
+        android:layout_height="56dp" />
+
+</RelativeLayout>

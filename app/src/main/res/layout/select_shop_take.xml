@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="수거 날짜 및 배송 날짜를 입력해 주세요"
+        android:gravity="center"
+        android:textColor="@color/Gray_text"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/select_take_button"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:text="수거 날짜 :"
+            android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/show_take_view"
+            android:textSize="20sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/select_deliver_button"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:text="배송 날짜 :"
+            android:textSize="20sp"/>
+        <TextView
+            android:textSize="20sp"
+            android:id="@+id/show_deliver_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/select_many_button"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:text="수량 :"
+            android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/show_many_view"
+            android:textSize="20sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="사장님꼐 전할말을 적어주세요"
+        android:textColor="@color/Gray_text"
+        android:gravity="center"/>
+
+    <EditText
+        android:background="@drawable/custom_edit_text"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <Button
+        android:id="@+id/confirm_laundry_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="예약 하기"
+        />
+
+
+</LinearLayout>
