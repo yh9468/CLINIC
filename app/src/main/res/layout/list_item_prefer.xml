@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/custom_edit_text_thin"
+    >
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="100dp"
+        android:scaleType="fitCenter"
+        android:layout_gravity="center"
+        android:layout_marginStart="20dp"
+        android:src="@drawable/shop_button_icon"
+        android:id="@+id/Laundry_Image_prefer"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginStart="30dp">
+        <TextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/Laundry_Name_prefer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/Laundry_Address_prefer"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/Gray_text"
+            android:textSize="15sp"/>
+    </LinearLayout>
+
+</LinearLayout>

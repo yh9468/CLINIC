@@ -9,49 +9,78 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.younho.clinic.model.Fix_shop;
+import com.example.younho.clinic.model.Laundry;
+import com.example.younho.clinic.model.MyListAdapter;
+import com.example.younho.clinic.model.MyListAdapterList_Fix_Prefer;
+import com.example.younho.clinic.model.MyListAdapterPrefer;
+
+import java.util.ArrayList;
 
 public class history_activity extends AppCompatActivity {
 
+    MyListAdapterPrefer adapter;
+    ListView listView;
+    ArrayList<Laundry> items;
+
+    MyListAdapterList_Fix_Prefer adapter_fix;
+    ListView listView_fix;
+    ArrayList<Fix_shop> items_fix;
+
     TextView title;
     ImageButton back_button;
-
-    ViewGroup first_shop, second_shop, third_shop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.history_layout);
 
-        first_shop = findViewById(R.id.shop_no_1);
-        second_shop = findViewById(R.id.shop_no_2);
-        third_shop = findViewById(R.id.shop_no_3);
+        listView_fix = (ListView) findViewById(R.id.prefer_fix_shop_list);
+        listView = (ListView)findViewById(R.id.prefer_shop_list);
 
-        first_shop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),shop_detail_activity.class);
-                intent.putExtra("id", 1);
-            }
+        items_fix = new ArrayList<>();
+        items = new ArrayList<Laundry> ();
 
-        });
-        second_shop.setOnClickListener(new View.OnClickListener() {
+        adapter_fix = new MyListAdapterList_Fix_Prefer(history_activity.this, items_fix);
+        adapter = new MyListAdapterPrefer(history_activity.this, items);
+
+        listView.setAdapter(adapter);
+        listView_fix.setAdapter(adapter_fix);
+
+        items.addAll(MainActivity.prefer_arr);
+        items_fix.addAll(MainActivity.prefer_fix_arr);
+
+        adapter.notifyDataSetChanged();
+        adapter_fix.notifyDataSetChanged();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),shop_detail_activity.class);
-                intent.putExtra("id", 4);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent1 = new Intent(getApplicationContext(), shop_detail_activity.class);
+                intent1.putExtra("id", items.get(position).getId());
+                intent1.putExtra("is_clean",true);
+                startActivity(intent1);
             }
         });
 
-        second_shop.setOnClickListener(new View.OnClickListener(){
+        listView_fix.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),shop_detail_activity.class);
-                intent.putExtra("id", 5);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent1 = new Intent(getApplicationContext(), shop_detail_activity.class);
+                intent1.putExtra("id", items_fix.get(position).getId());
+                intent1.putExtra("is_clean",false);
+                startActivity(intent1);
             }
         });
+
+
+
     }
 
     @Override

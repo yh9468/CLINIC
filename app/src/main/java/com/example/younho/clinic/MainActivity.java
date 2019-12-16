@@ -26,6 +26,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.younho.clinic.model.Fix_shop;
 import com.example.younho.clinic.model.Laundry;
 
 import org.json.JSONArray;
@@ -43,13 +44,20 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
     public static final int main_clean = 1000;
-    private String REQUEST_URL = "http://9942b416.ngrok.io/abc/laundry/";
+    private String common_URL = "http://d10bfaa5.ngrok.io";
+    private String Laundry_URL = common_URL + "/abc/laundry/";
+    private String Fixshop_URL = common_URL + "/abc/repair";
+
 
     public static Location picked_location = null;
     public static String picked_address = null;
 
     public static int distance = 500;
     public static final ArrayList<Laundry> Laundry_arr = new ArrayList<Laundry>();
+    public static final ArrayList<Laundry> prefer_arr = new ArrayList<>();
+    public static final ArrayList<Fix_shop> Fix_arr = new ArrayList<>();
+    public static final ArrayList<Fix_shop> prefer_fix_arr = new ArrayList<>();
+
     JSONArray jsonArray;
 
     ImageButton drawer_button;
@@ -62,6 +70,11 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Laundry_arr.clear();
+        prefer_arr.clear();
+        Fix_arr.clear();
+        prefer_fix_arr.clear();
+
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -99,7 +112,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-
+                Intent intent = new Intent(getApplicationContext(), FixActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -115,8 +129,6 @@ public class MainActivity extends AppCompatActivity
 
         //세탁소 정보 싹다 가져오기.
         getJSON();
-
-
     }
 
     @Override
@@ -204,16 +216,26 @@ public class MainActivity extends AppCompatActivity
         Thread thread = new Thread(new Runnable() {
             public void run() {
                 String result;
+                String result_fix;
                 try {
-                    Log.d("URL", REQUEST_URL);
-                    URL url = new URL(REQUEST_URL);
+                    URL url = new URL(Laundry_URL);
+                    URL url_fix = new URL(Fixshop_URL);
+
                     HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    HttpURLConnection httpURLConnection_fix = (HttpURLConnection) url_fix.openConnection();
+
                     httpURLConnection.setReadTimeout(4000);
                     httpURLConnection.setConnectTimeout(4000);
-                    //httpURLConnection.setDoOutput(true);
-                    //httpURLConnection.setDoInput(true);
+
+                    httpURLConnection_fix.setReadTimeout(4000);
+                    httpURLConnection_fix.setConnectTimeout(4000);
+
                     httpURLConnection.setRequestMethod("GET");
+                    httpURLConnection_fix.setRequestMethod("GET");
+
                     httpURLConnection.setUseCaches(false);
+                    httpURLConnection_fix.setUseCaches(false);
+
                     httpURLConnection.connect();
                     int responseStatusCode = httpURLConnection.getResponseCode();
                     InputStream inputStream;
@@ -236,8 +258,33 @@ public class MainActivity extends AppCompatActivity
                     httpURLConnection.disconnect();
                     result = sb.toString().trim();
 
+                    //여기서부터는 수선소
+
+                    httpURLConnection_fix.connect();
+                    int responseStatusCode_fix = httpURLConnection_fix.getResponseCode();
+                    InputStream inputStream_fix;
+                    if (responseStatusCode_fix == HttpURLConnection.HTTP_OK) {
+                        inputStream_fix = httpURLConnection_fix.getInputStream();
+                    } else {
+                        inputStream_fix = httpURLConnection_fix.getErrorStream();
+                    }
+
+                    InputStreamReader inputStreamReader_fix = new InputStreamReader(inputStream_fix, "UTF-8");
+                    BufferedReader bufferedReader_fix = new BufferedReader(inputStreamReader_fix);
+
+                    StringBuilder sb_fix = new StringBuilder();
+                    String line_fix;
+
+                    while ((line_fix = bufferedReader_fix.readLine()) != null) {
+                        sb_fix.append(line_fix);
+                    }
+                    bufferedReader_fix.close();
+                    httpURLConnection_fix.disconnect();
+                    result_fix = sb_fix.toString().trim();
+
                 } catch (Exception e) {
                     result = e.toString();
+                    result_fix = e.toString();
                 }
                 try {
                     jsonArray = new JSONArray(result);
@@ -250,6 +297,23 @@ public class MainActivity extends AppCompatActivity
                         String Address = jsonObject.getString("Address");
                         Laundry laundry = new Laundry(id, Name,Lat,Lon,Address);
                         Laundry_arr.add(laundry);
+                        if(id == 1 || id ==4 || id == 5)
+                        {
+                            prefer_arr.add(laundry);
+                        }
+
+                    }
+
+                    jsonArray = new JSONArray(result_fix);
+                    for(int i = 0 ; i<jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        int id = jsonObject.getInt("id");
+                        String Name = jsonObject.getString("Name");
+                        double Lat = jsonObject.getDouble("Latitude");
+                        double Lon = jsonObject.getDouble("Longitude");
+                        String Address = jsonObject.getString("Address");
+                        Fix_shop fix_shop = new Fix_shop(id, Name,Lat,Lon,Address);
+                        Fix_arr.add(fix_shop);
                     }
                 } catch (Exception e)
                 {

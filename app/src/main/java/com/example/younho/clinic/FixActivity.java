@@ -1,55 +1,33 @@
 package com.example.younho.clinic;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.provider.Telephony;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.younho.clinic.model.Laundry;
-import com.example.younho.clinic.model.MyListAdapter;
+import com.example.younho.clinic.model.Fix_shop;
+import com.example.younho.clinic.model.MyListAdapter_Fix;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.gson.JsonArray;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.ref.WeakReference;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 
-import retrofit2.http.GET;
-
-public class CleanActivity extends AppCompatActivity {
-
-    public final static int REQUEST_ACT = 1000;
+public class FixActivity  extends AppCompatActivity {
+    public final static int REQUEST_ACT = 1001;
 
     //listview 어뎁터 및 리스트뷰
-    MyListAdapter adapter;
+    MyListAdapter_Fix adapter;
     ListView listView;
-    ArrayList<Laundry> items;
+    ArrayList<Fix_shop> items;
 
     Button address_button;
     TextView title;
@@ -59,16 +37,16 @@ public class CleanActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_clean);
+        setContentView(R.layout.activity_fix);
         Intent intent = new Intent(this.getIntent());
-        listView = (ListView)findViewById(R.id.shop_list);
+        listView = (ListView)findViewById(R.id.fix_shop_list);
 
-        items = new ArrayList<Laundry> ();
-        adapter = new MyListAdapter(CleanActivity.this, items);
+        items = new ArrayList<Fix_shop> ();
+        adapter = new MyListAdapter_Fix(FixActivity.this, items);
         listView.setAdapter(adapter);
 
 
-        address_button = (Button) findViewById(R.id.select_address_btn);
+        address_button = (Button) findViewById(R.id.select_fix_address_btn);
 
         address_button.setOnClickListener(new Button.OnClickListener()
         {
@@ -82,8 +60,8 @@ public class CleanActivity extends AppCompatActivity {
         });
 
         if(MainActivity.picked_location != null) {
-            ArrayList<Laundry> laundries = getLaundries(MainActivity.picked_location);       //요게 얻은 세탁소들..
-            items.addAll(laundries);
+            ArrayList<Fix_shop> Fix_shops = getFixshops(MainActivity.picked_location);       //요게 얻은 세탁소들..
+            items.addAll(Fix_shops);
             adapter.notifyDataSetChanged();
             address_button.setText(MainActivity.picked_address);
 
@@ -91,8 +69,8 @@ public class CleanActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent1 = new Intent(getApplicationContext(), shop_detail_activity.class);
-                    intent1.putExtra("is_clean", true);
                     intent1.putExtra("id", items.get(position).getId());
+                    intent1.putExtra("is_clean", false);
                     startActivity(intent1);
                 }
             });
@@ -118,16 +96,16 @@ public class CleanActivity extends AppCompatActivity {
             MainActivity.picked_address = Address;
             MainActivity.picked_location = location_picked;         //Main에서 유지하도록 설정.
 
-            ArrayList<Laundry> laundries = getLaundries(location_picked);       //요게 얻은 세탁소들..
+            ArrayList<Fix_shop> Fix_shops = getFixshops(location_picked);       //요게 얻은 세탁소들..
 
-            items.addAll(laundries);
+            items.addAll(Fix_shops);
             adapter.notifyDataSetChanged();
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent1 = new Intent(getApplicationContext(), shop_detail_activity.class);
-                    intent1.putExtra("is_clean", true);
                     intent1.putExtra("id", items.get(position).getId());
+                    intent1.putExtra("is_clean", false);
                     startActivity(intent1);
                 }
             });
@@ -157,7 +135,7 @@ public class CleanActivity extends AppCompatActivity {
         parent.setContentInsetsAbsolute(0,0);
 
         title = findViewById(R.id.title_bar_text);
-        title.setText("세탁물 배달 신청");
+        title.setText("수선물 배달 신청");
         back_button = (ImageButton) findViewById(R.id.btnBack);
         back_button.setOnClickListener(new Button.OnClickListener(){
             @Override
@@ -169,23 +147,23 @@ public class CleanActivity extends AppCompatActivity {
         return true;
     }
 
-    public ArrayList<Laundry> getLaundries(Location location)
+    public ArrayList<Fix_shop> getFixshops(Location location)
     {
-        ArrayList<Laundry> laundries = new ArrayList<>();
-        for(int i = 0 ; i<MainActivity.Laundry_arr.size() ; i++)
+        ArrayList<Fix_shop> fix_shops = new ArrayList<>();
+        for(int i = 0 ; i<MainActivity.Fix_arr.size() ; i++)
         {
-            Laundry laundry = MainActivity.Laundry_arr.get(i);
-            Location laundry_location = new Location("laundry_location");
-            laundry_location.setLongitude(laundry.getLon());
-            laundry_location.setLatitude(laundry.getLat());
-            double distance = location.distanceTo(laundry_location);
+            Fix_shop fix_shop = MainActivity.Fix_arr.get(i);
+            Location fix_location = new Location("fix_location");
+            fix_location.setLongitude(fix_shop.getLon());
+            fix_location.setLatitude(fix_shop.getLat());
+            double distance = location.distanceTo(fix_location);
             if(distance < MainActivity.distance)     //1000미터 이내.
             {
-                laundries.add(laundry);
+                fix_shops.add(fix_shop);
             }
         }
 
-        return laundries;
+        return fix_shops;
     }
 
 }

@@ -5,10 +5,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageButton
+        android:id="@+id/like_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="fitCenter"
+        android:layout_gravity="right"
+        android:background="@drawable/button_select_heart_view"/>
     <com.example.younho.clinic.CircleImageView
         android:id="@+id/shop_image"
         android:src="@drawable/shop_button_icon"
-        android:layout_marginTop="30dp"
         android:layout_width="96dp"
         android:layout_height="96dp"
         app:civ_border_width="2dp"

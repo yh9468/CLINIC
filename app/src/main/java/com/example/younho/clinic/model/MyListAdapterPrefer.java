@@ -1,6 +1,7 @@
 package com.example.younho.clinic.model;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,22 +11,18 @@ import android.widget.TextView;
 
 import com.example.younho.clinic.R;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.Random;
 
-public class MyListAdapter extends BaseAdapter {
+public class MyListAdapterPrefer extends BaseAdapter {
 
     private Context context;
     private ArrayList<Laundry> list_item_Array_List;
-
+    ImageView imageView;
     TextView name;
     TextView address;
-    TextView rate;
-    ImageView imageView;
 
-    public MyListAdapter(Context context, ArrayList<Laundry> list_item_Array_List)
+    public MyListAdapterPrefer(Context context, ArrayList<Laundry> list_item_Array_List)
     {
         this.context = context;
         this.list_item_Array_List = list_item_Array_List;
@@ -48,25 +45,15 @@ public class MyListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-       if(convertView ==null) {
-           convertView = LayoutInflater.from(context).inflate(R.layout.list_item, null);
-       }
-       if(list_item_Array_List.size() ==0)
-           return convertView;
+        if(convertView ==null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.list_item_prefer, null);
+        }
+        if(list_item_Array_List.size() ==0)
+            return convertView;
 
-       name = (TextView)convertView.findViewById(R.id.Laundry_Name);
-       address = (TextView) convertView.findViewById(R.id.Laundry_Address);
-       rate = (TextView) convertView.findViewById(R.id.star_rate);
-       imageView = (ImageView) convertView.findViewById(R.id.Laundry_Image);
-
-       name.setText(list_item_Array_List.get(position).getName());
-       address.setText(list_item_Array_List.get(position).getAddress());
-       Random random = new Random();
-       double rannum = random.nextDouble()*20;
-       rannum = Math.round(rannum)/10.0 + 3;
-       String str = Double.toString(rannum);
-
-       rate.setText(str);
+        imageView = (ImageView) convertView.findViewById(R.id.Laundry_Image_prefer);
+        name = (TextView)convertView.findViewById(R.id.Laundry_Name_prefer);
+        address = (TextView) convertView.findViewById(R.id.Laundry_Address_prefer);
 
         Laundry shop = list_item_Array_List.get(position);
         if(shop.getName().contains("크린토피아"))
@@ -78,6 +65,10 @@ public class MyListAdapter extends BaseAdapter {
         else
             imageView.setImageResource(R.drawable.shop_button_icon);
 
-       return convertView;
+        name.setText(list_item_Array_List.get(position).getName());
+        address.setText(list_item_Array_List.get(position).getAddress());
+
+
+        return convertView;
     }
 }
