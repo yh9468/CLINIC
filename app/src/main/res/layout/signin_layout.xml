@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/white">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:textSize="70sp"
+        android:gravity="center"
+        android:fontFamily="@font/housky_demo"
+        android:text="CLINIC" />
+    <EditText
+        android:id="@+id/signin_id"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:ems="10"
+        android:hint="ID"
+        android:inputType="textPersonName"/>
+
+
+    <EditText
+        android:id="@+id/signin_pw"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:hint="Password"
+        android:inputType="textPassword"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/lightBlue"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+
+            android:text="로그인"/>
+
+        <com.kakao.usermgmt.LoginButton
+            android:id="@+id/login_btn_kakaologin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"/>
+
+    </LinearLayout>
+</LinearLayout>

@@ -130,6 +130,8 @@ public class shop_take_activity extends AppCompatActivity {
         confirm_laundry_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(shop_take_activity.this, "예약이 신청되었습니다!", Toast.LENGTH_SHORT).show();
+
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);

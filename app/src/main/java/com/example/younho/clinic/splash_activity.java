@@ -16,7 +16,7 @@ public class splash_activity extends Activity {
     }
     private class splashhandler implements Runnable{
         public void run(){
-            startActivity(new Intent(getApplication(), MainActivity.class));     //로딩이 끝난 후, mainactivity로 넘어감.
+            startActivity(new Intent(getApplication(), signin_Activity.class));     //로딩이 끝난 후, signActivity로 넘어감.
             splash_activity.this.finish();
         }
     }

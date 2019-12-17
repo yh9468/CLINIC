@@ -2,5 +2,5 @@
     <string name="app_name">CLINIC</string>
     <string name="drawer_open">drawer_open</string>
     <string name="drawer_close">drawer_close</string>
-
+    <string name="kakao_app_key">5193ae6261ce6691ef2d2c56caaae7d1</string>
 </resources>

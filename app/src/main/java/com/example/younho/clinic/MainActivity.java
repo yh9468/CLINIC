@@ -1,12 +1,17 @@
 package com.example.younho.clinic;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.content.res.Configuration;
 import android.location.Location;
 import android.os.Message;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,6 +21,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,6 +34,8 @@ import android.widget.Toast;
 
 import com.example.younho.clinic.model.Fix_shop;
 import com.example.younho.clinic.model.Laundry;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.LogoutResponseCallback;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -37,14 +45,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
-
     public static final int main_clean = 1000;
-    private String common_URL = "http://d10bfaa5.ngrok.io";
+    private String common_URL = "http://2ce05764.ngrok.io";
     private String Laundry_URL = common_URL + "/abc/laundry/";
     private String Fixshop_URL = common_URL + "/abc/repair";
 
@@ -66,16 +74,15 @@ public class MainActivity extends AppCompatActivity
     ActionBarDrawerToggle drawerToggle;
     NavigationView mNavVIew;
     Toolbar toolbar;
+
+    Button logout_btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Laundry_arr.clear();
-        prefer_arr.clear();
-        Fix_arr.clear();
-        prefer_fix_arr.clear();
+        getAppKeyHash();
 
-
+        logout_btn = findViewById(R.id.Logout_button);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("CLINIC");
@@ -127,8 +134,26 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+
+        logout_btn.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                UserManagement.requestLogout(new LogoutResponseCallback() {
+                    @Override
+                    public void onCompleteLogout() {
+                        Intent intent = new Intent(getApplicationContext(), signin_Activity.class);
+                        signin_Activity.curuser = null;
+                        intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    }
+                });
+            }
+        });
+
         //세탁소 정보 싹다 가져오기.
-        getJSON();
+        if(Laundry_arr.size() == 0)
+            getJSON();
     }
 
     @Override
@@ -209,6 +234,24 @@ public class MainActivity extends AppCompatActivity
             }
         });
         builder.show();
+    }
+
+    // 프로젝트의 해시키를 반환
+
+    private void getAppKeyHash() {
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md;
+                md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                String something = new String(Base64.encode(md.digest(), 0));
+                Log.e("Hash key", something);
+            }
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            Log.e("name not found", e.toString());
+        }
     }
 
 

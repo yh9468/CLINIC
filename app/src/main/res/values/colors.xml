@@ -7,5 +7,7 @@
     <color name="lightgray">#FFDCDCDC</color>
     <color name="white">#FFF8F8FF</color>
     <color name="textColor">#FF1E90FF</color>
+    <color name="lightBlue">#2f2f94</color>>
     <color name="splash_background_color">#CEEBF9</color>
+    <color name="Yello">#eded11</color>
 </resources>
